@@ -17,10 +17,15 @@
             animation: fadeIn 0.5s;
         }
 
-        /* Section Backgrounds */
-        #management-section { background-color: #eaf2f8; color: #333; } /* Light Blueish */
-        #hr-section { background-color: #f3eaf8; color: #333; } /* Light Purpleish */
-        #employee-section { background-color: #eaf8ea; color: #333; } /* Light Greenish */
+        /* --- SECTION BACKGROUNDS --- */
+        /* Management: Light Gold/Cream */
+        #management-section { background-color: #fcf3cf; color: #333; } 
+        
+        /* HR: Light Purple */
+        #hr-section { background-color: #f3eaf8; color: #333; } 
+        
+        /* Employee: Light Teal (Updated) */
+        #employee-section { background-color: #e0f2f1; color: #333; } 
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
@@ -30,16 +35,15 @@
             height: auto;
             margin-bottom: 20px;
             display: block;
-            /* Removed default background-color: white; */
             padding: 15px 30px;
             border-radius: 50px; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Slightly darker shadow for contrast */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
         }
         
-        /* Portal-Specific Logo Backgrounds */
-        .logo-mgmt { background-color: #0056b3; } /* Blue for Management */
-        .logo-hr { background-color: #8e44ad; }   /* Purple for HR */
-        .logo-emp { background-color: #27ae60; }  /* Green for Employee */
+        /* --- PORTAL SPECIFIC LOGO BACKGROUNDS --- */
+        .logo-mgmt { background-color: #d68910; } /* Gold */
+        .logo-hr { background-color: #8e44ad; }   /* Purple */
+        .logo-emp { background-color: #004D40; }  /* Dark Teal */
 
         /* --- TITLE STYLES --- */
         h1 { 
@@ -58,15 +62,19 @@
         /* BUTTONS */
         button { padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; color: white; transition: 0.3s; margin-top: 10px;}
 
-        /* Theme Colors */
-        .btn-mgmt { background-color: #0056b3; } /* Blue */
-        .btn-mgmt:hover { background-color: #004494; }
+        /* --- THEME BUTTON COLORS --- */
+        
+        /* Management: Gold */
+        .btn-mgmt { background-color: #f39c12; } 
+        .btn-mgmt:hover { background-color: #d35400; }
 
-        .btn-hr { background-color: #8e44ad; } /* Purple */
+        /* HR: Purple */
+        .btn-hr { background-color: #8e44ad; } 
         .btn-hr:hover { background-color: #732d91; }
 
-        .btn-emp { background-color: #27ae60; } /* Green */
-        .btn-emp:hover { background-color: #219150; }
+        /* Employee: TEAL (Updated) */
+        .btn-emp { background-color: #009688; } 
+        .btn-emp:hover { background-color: #00796B; }
 
         /* NAVIGATION BUTTON CONTAINER */
         .nav-container {
@@ -100,9 +108,6 @@
         .scroll-form { max-height: 400px; overflow-y: auto; padding-right: 10px; }
         .scroll-form input { width: 90%; margin-bottom: 5px;}
         
-        /* Loading Spinner */
-        #loading { display: none; text-align: center; margin-top: 10px; font-weight: bold; color: #0056b3; }
-        
         /* DOB Label inside Modal */
         .dob-label { display: block; font-size: 13px; color: #666; margin-bottom: -10px; margin-left: 2px; text-align: left; }
     </style>
@@ -111,7 +116,7 @@
 
 <div id="management-section" class="full-screen-section" style="display: flex;">
     <img src="aiinfo.webp" alt="AI Infotech Logo" class="logo logo-mgmt">
-    <h1>Management Portal</h1>
+    <h1 style="color: #d35400;">Management Portal</h1>
 
     <form onsubmit="handleLogin(event, 'management')">
         <label>Welcome Back, Admin</label>
@@ -145,7 +150,7 @@
 
 <div id="employee-section" class="full-screen-section">
     <img src="aiinfo.webp" alt="AI Infotech Logo" class="logo logo-emp">
-    <h1 style="color: #27ae60;">Employee Portal</h1>
+    <h1 style="color: #009688;">Employee Portal</h1>
 
     <form onsubmit="handleLogin(event, 'employee')">
         <label>Employee Login</label>
@@ -155,7 +160,7 @@
     </form>
 
     <p style="margin-top: 20px;">
-        New Employee? <a href="#" onclick="openModal()" style="color:#27ae60;">Register Here</a>
+        New Employee? <a href="#" onclick="openModal()" style="color:#009688;">Register Here</a>
     </p>
 
     <div class="nav-container">
@@ -167,7 +172,7 @@
 <div id="regModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <h2 style="text-align: center; margin-top: 0;">New Registration</h2>
+        <h2 style="text-align: center; margin-top: 0; color: #009688;">New Registration</h2>
         <form id="registrationForm" class="scroll-form">
             <input type="text" name="User Name" placeholder="User Name (Login ID)" required>
             <input type="text" name="First Name" placeholder="First Name" required>
@@ -222,7 +227,7 @@
         }
     }
 
-    // 2. LOGIN HANDLING (API Removed - Hardcoded Credentials)
+    // 2. LOGIN HANDLING
     window.handleLogin = function(event, role) {
         event.preventDefault();
         
@@ -257,7 +262,6 @@
             const id = document.getElementById('emp-id').value;
             const pass = document.getElementById('emp-pass').value;
 
-            // Database removed, check static credentials only
             if(id === "employee@aiinfotech" && pass === "employee123") {
                 sessionStorage.setItem("userRole", "employee");
                 sessionStorage.setItem("userName", "employee");
@@ -269,7 +273,7 @@
         }
     }
 
-    // 3. REGISTRATION LOGIC (Simulated - No API)
+    // 3. REGISTRATION LOGIC
     const regForm = document.getElementById('registrationForm');
     
     regForm.addEventListener('submit', (e) => {
