@@ -12,135 +12,103 @@
             margin: 0;
             display: flex;
             height: 100vh;
-            background-color: #fcf3cf; /* Very Light Yellow BG */
+            background-color: #fcf3cf; /* Light Yellow */
         }
 
-        /* --- SIDEBAR STYLES (MANAGEMENT GOLD THEME) --- */
+        /* --- SIDEBAR --- */
         .sidebar {
             width: 280px;
-            background-color: #f39c12; /* Premium Gold/Amber */
+            background-color: #f39c12; /* Gold */
             color: white;
             display: flex;
             flex-direction: column;
             padding: 20px;
             box-shadow: 4px 0 10px rgba(0,0,0,0.1);
-            overflow-y: auto;
         }
 
-        /* --- CIRCULAR LOGO BADGE --- */
         .logo-area {
-            background-color: #9c6002; /* Darker Gold for contrast */
-            width: 180px;  
-            height: 180px;
-            border-radius: 50%; 
-            margin: 0 auto 30px auto; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #9c6002;
+            width: 180px; height: 180px;
+            border-radius: 50%; margin: 0 auto 30px auto;
+            display: flex; justify-content: center; align-items: center;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            border: 4px solid rgba(255,255,255,0.2);
-            overflow: hidden; 
+            border: 4px solid rgba(255,255,255,0.2); overflow: hidden;
         }
+        .logo-area img { max-width: 85%; height: auto; display: block; }
         
-        .logo-area img {
-            max-width: 85%;
-            height: auto;
-            display: block;
-        }
-
-        .welcome-label { font-size: 20px; font-weight: bold; margin-bottom: 5px; text-align: center; text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        .greet-note { font-size: 13px; opacity: 0.95; margin-bottom: 30px; font-style: italic; border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 15px; text-align: center;}
-
-        .menu-item { padding: 12px 15px; cursor: pointer; border-radius: 8px; transition: 0.3s; font-weight: 500; margin-bottom: 5px; }
-        .menu-item:hover { background-color: #e67e22; }
-        .menu-item.active { background-color: white; color: #d35400; font-weight: bold; }
-
-        .logout-btn { margin-top: auto; background-color: #9c6002; border: none; padding: 15px; color: white; cursor: pointer; border-radius: 8px; font-weight: bold; text-align: left; }
-        .logout-btn:hover { background-color: rgba(0,0,0,0.2); }
+        .welcome-label { font-size: 20px; font-weight: bold; margin-bottom: 5px; text-align: center; }
+        .greet-note { font-size: 13px; opacity: 0.95; margin-bottom: 30px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 15px; }
+        
+        .menu-item { padding: 12px 15px; border-radius: 8px; font-weight: 500; margin-bottom: 5px; background-color: white; color: #d35400; font-weight: bold; }
+        
+        .logout-btn { margin-top: auto; background-color: #9c6002; border: none; padding: 15px; color: white; cursor: pointer; border-radius: 8px; font-weight: bold; }
 
         /* --- MAIN CONTENT --- */
         .main-content { flex: 1; padding: 40px; overflow-y: auto; }
-        .container { max-width: 100%; margin: 0 auto; }
+        .container { max-width: 1200px; margin: 0 auto; }
 
         .header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 10px; }
-        h2 { color: #ba4a00; border-bottom: 3px solid #f39c12; padding-bottom: 10px; display: inline-block; margin: 0; flex-grow: 1; }
+        h2 { color: #ba4a00; border-bottom: 3px solid #f39c12; padding-bottom: 10px; margin: 0; flex-grow: 1; }
 
-        /* BUTTON STYLES */
-        .action-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            color: white;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap; /* Prevents text from wrapping */
-        }
+        /* BUTTONS */
+        .action-btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; transition: 0.3s; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        .btn-pdf { background-color: #e74c3c; } .btn-pdf:hover { background-color: #c0392b; }
+        .btn-excel { background-color: #27ae60; } .btn-excel:hover { background-color: #219150; }
+        .btn-refresh { background-color: #3498db; } .btn-refresh:hover { background-color: #2980b9; }
+        .btn-view { background-color: #f39c12; color: white; padding: 5px 15px; font-size: 13px; } .btn-view:hover { background-color: #d35400; }
 
-        .btn-pdf { background-color: #e74c3c; } 
-        .btn-pdf:hover { background-color: #c0392b; }
-
-        .btn-excel { background-color: #27ae60; } 
-        .btn-excel:hover { background-color: #219150; }
-
-        .btn-refresh { background-color: #3498db; } 
-        .btn-refresh:hover { background-color: #2980b9; }
-
-        /* --- DATA TABLE CARD --- */
-        .data-card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            overflow-x: auto; 
-        }
-
-        table { width: 100%; border-collapse: collapse; min-width: 3000px; }
-        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; font-size: 13px; vertical-align: top; border-right: 1px solid #eee; }
+        /* --- MAIN DATA TABLE --- */
+        .data-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; font-size: 14px; }
         th { background-color: #fdebd0; color: #ba4a00; font-weight: bold; position: sticky; top: 0; }
         tr:hover { background-color: #fff9e6; }
-        
-        .col-sno { width: 50px; font-weight: bold; }
-        .col-token { width: 150px; color: #d35400; font-weight: bold; }
 
-        /* --- PDF HIDDEN STYLES --- */
+        /* --- MODAL & DETAIL TABLE STYLES --- */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(5px); }
+        .modal-content { 
+            background-color: white; margin: 2% auto; padding: 30px; border-radius: 10px; 
+            width: 80%; max-width: 1000px; max-height: 90vh; overflow-y: auto;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3); border-top: 10px solid #f39c12;
+        }
+        .close { float: right; font-size: 28px; font-weight: bold; cursor: pointer; color: #aaa; }
+        .close:hover { color: #000; }
+
+        /* ROW WISE DETAIL TABLE */
+        .detail-table { width: 100%; border: 1px solid #eee; margin-top: 15px; border-collapse: collapse; }
+        .detail-table th.main-head { background-color: #f39c12; color: white; padding: 10px; text-align: left;}
+        .detail-table td { border-bottom: 1px solid #eee; padding: 10px; vertical-align: top; }
+        
+        /* Section Header Row Style (Part 1, Part 2...) */
+        .section-row { background-color: #e67e22; color: white; text-align: center; font-weight: bold; font-size: 15px; letter-spacing: 1px; }
+        
+        .dt-qno { width: 50px; text-align: center; font-weight: bold; color: #888; border-right: 1px solid #eee; }
+        .dt-que { width: 55%; font-weight: 600; color: #333; border-right: 1px solid #eee; }
+        .dt-ans { font-weight: bold; color: #d35400; background-color: #fef9e7; }
+
+        /* PDF HIDDEN */
         #pdf-content { display: none; padding: 20px; }
-        .pdf-main-header { text-align: center; color: #2c3e50; margin-bottom: 30px; font-size: 32px; font-weight: 800; text-transform: uppercase; border-bottom: 3px solid #f39c12; padding-bottom: 15px; }
-        .pdf-entry { border: 1px solid #ddd; padding: 20px; margin-bottom: 25px; border-radius: 8px; background-color: #fff; page-break-inside: avoid; }
-        .pdf-ref-header { background-color: #f39c12; color: white; padding: 10px; font-size: 16px; font-weight: bold; border-radius: 4px; margin-bottom: 15px; display: flex; justify-content: space-between; }
-        .pdf-personal-info { background-color: #fef9e7; padding: 10px; border-left: 4px solid #f39c12; margin-bottom: 15px; font-size: 14px; color: #444; }
-        .pdf-qa-row { margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
-        .pdf-question { font-weight: bold; color: #444; display: block; margin-bottom: 4px; font-size: 13px; }
-        .pdf-answer { color: #d35400; font-size: 16px; padding-left: 10px; font-weight: 600; }
+        .pdf-entry { margin-bottom: 30px; page-break-inside: avoid; }
+        .pdf-header { background: #f39c12; color: white; padding: 10px; font-weight: bold; margin-bottom: 10px; text-align: center; }
         
         #loading { text-align: center; color: #d35400; font-weight: bold; margin-top: 20px; }
-
     </style>
 </head>
 <body>
 
     <div class="sidebar">
-        <div class="logo-area">
-            <img src="aiinfo.webp" alt="Logo">
-        </div>
-
+        <div class="logo-area"><img src="aiinfo.webp" alt="Logo"></div>
         <div class="welcome-label">Welcome, Director</div>
-        <div class="greet-note">Full Executive Overview.</div>
-
+        <div class="greet-note">Full Executive Overview</div>
         <div class="menu-item active">Master Feedback Data</div>
-
         <button class="logout-btn" onclick="logout()">← Logout</button>
     </div>
 
     <div class="main-content">
         <div class="container">
-            
             <div class="header-flex">
                 <h2>Full Executive Feedback Sheet</h2>
-                
                 <button class="action-btn btn-refresh" onclick="fetchData()">↻ Refresh</button>
                 <button class="action-btn btn-excel" onclick="downloadExcel()">Download Feedback (Excel)</button>
                 <button class="action-btn btn-pdf" onclick="downloadPDF()">Download Feedback (PDF)</button>
@@ -149,62 +117,81 @@
             <div class="data-card">
                 <div id="loading">Loading Master Data from SheetDB...</div>
                 
-                <table id="feedbackTable" style="display:none;">
+                <table id="mainTable" style="display:none;">
                     <thead>
                         <tr>
-                            <th class="col-sno">S.No</th>
-                            <th class="col-token">Token</th>
-                            <th>Q1: Overall Exp</th>
-                            <th>Q2: Role</th>
-                            <th>Q3: Environment</th>
-                            <th>Q4: Respect</th>
-                            <th>Q5: Comm.</th>
-                            <th>Q6: Supervisor</th>
-                            <th>Q7: Workload</th>
-                            <th>Q8: Tools</th>
-                            <th>Q9: Learning</th>
-                            <th>Q10: Growth</th>
-                            <th>Q11: Work-Life</th>
-                            <th>Q12: Ideas</th>
-                            <th>Q13: Salary</th>
-                            <th>Q14: Recommend</th>
-                            <th>Q15: Comments</th>
+                            <th style="width: 50px;">S.No</th>
+                            <th>Token ID</th>
+                            <th style="width: 100px;">Action</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
                         </tbody>
                 </table>
             </div>
+        </div>
+    </div>
 
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle" style="margin-top:0; color: #d35400; text-align:center;">Feedback Details</h2>
+            <div id="modalBody"></div>
         </div>
     </div>
 
     <div id="pdf-content">
-        <div class="pdf-main-header">Full Executive Feedback Report</div>
+        <h1 style="text-align:center; color:#2c3e50; border-bottom:3px solid #f39c12;">Feedback Report</h1>
         <div id="pdf-body"></div>
     </div>
 
     <script>
-        const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/r781uwwg4lmp9'; 
-        
+        const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/2h2w1v1ug85h6'; 
         let globalFeedbackData = [];
 
+        // FULL 41 QUESTION MAP (Cleaned - No "Part" labels in text)
         const questionMap = {
-            "Q1": "1. How satisfied are you with your overall experience working at AI Infotech?",
-            "Q2": "2. Do you clearly understand your role and responsibilities?",
-            "Q3": "3. How would you rate the work environment and office culture?",
-            "Q4": "4. Do you feel respected and valued by your team and management?",
-            "Q5": "5. How effective is communication between employees and management?",
-            "Q6": "6. Are you satisfied with the support and guidance provided by your immediate supervisor?",
-            "Q7": "7. Do you feel the workload assigned to you is reasonable and manageable?",
-            "Q8": "8. Are you provided with the necessary tools, resources, and technology?",
-            "Q9": "9. How satisfied are you with the learning and skill development opportunities?",
-            "Q10": "10. Do you feel there are fair opportunities for career growth and promotion?",
-            "Q11": "11. How would you rate the company’s policies related to work-life balance?",
-            "Q12": "12. Are your ideas, suggestions, or feedback encouraged and taken seriously?",
-            "Q13": "13. How satisfied are you with the salary, incentives, and benefits provided?",
-            "Q14": "14. Would you recommend AI Infotech as a good place to work to others?",
-            "Comments": "15. Additional Comments / Improvements"
+            "Q1": "Is the office space maintained neat and clean?",
+            "Q2": "How is the access to the office premises? Is it easy to reach?",
+            "Q3": "Are you provided with the necessary tools, resources, and technology?",
+            "Q4": "Is the facility having/providing necessary things for your basic needs?",
+            "Q5": "Do you clearly understand your role and responsibilities?",
+            "Q6": "Do you feel the workload assigned to you is reasonable and manageable?",
+            "Q7": "Are you satisfied with the support and guidance provided by your supervisor?",
+            "Q8": "Is proper training and knowledge transfer available for the program you work on?",
+            "Q9": "How effective is communication between employees and management?",
+            "Q10": "How would you rate the work environment and office culture?",
+            "Q11": "Do you feel respected and valued by your team and management?",
+            "Q12": "Are your ideas, suggestions, or feedback encouraged and taken seriously?",
+            "Q13": "How satisfied are you with the learning and skill development opportunities?",
+            "Q14": "Do you feel there are fair opportunities for career growth and promotion?",
+            "Q15": "How satisfied are you with the salary, incentives, and benefits provided?",
+            "Q16": "How would you rate the company’s policies related to work-life balance?",
+            "Q17": "Are the shift timings convenient for you? (Do you have any issues with commuting?)",
+            "Q18": "How satisfied are you with your overall experience working here?",
+            "Q19": "Would you recommend this company as a good place to work to others?",
+            "Q20": "What improvements or changes would you suggest?",
+            "Q21": "How would you rate the cleanliness and maintenance of the office space?",
+            "Q22": "How easy is it to access and reach the office premises?",
+            "Q23": "Are you provided with the necessary tools and technology to perform your job effectively?",
+            "Q24": "Does the facility adequately provide for your basic needs?",
+            "Q25": "Do you clearly understand your primary role and responsibilities?",
+            "Q26": "How manageable is your typical workload?",
+            "Q27": "How would you rate the support and guidance from your immediate supervisor/manager?",
+            "Q28": "How effective is the training and knowledge transfer for your program?",
+            "Q29": "How effective is the communication between employees and senior management?",
+            "Q30": "How would you describe the overall work environment and office culture?",
+            "Q31": "Do you feel respected and valued by your team and management?",
+            "Q32": "Are your ideas and feedback encouraged and acted upon?",
+            "Q33": "How satisfied are you with learning and skill development opportunities?",
+            "Q34": "How do you view opportunities for career growth and promotion here?",
+            "Q35": "How satisfied are you with your overall compensation (salary, incentives, benefits)?",
+            "Q36": "How do you rate the company's support for work-life balance?",
+            "Q37": "How convenient are your shift timings and commute?",
+            "Q38": "Overall, how satisfied are you working at AI Infotech?",
+            "Q39": "How likely are you to recommend AI Infotech as a workplace to a friend?",
+            "Q40": "Detailed: Specific issues, ideas for improvement, or detailed suggestions.",
+            "Q41": "Detailed: Explanation of specific challenges (if applicable)."
         };
 
         window.onload = function() {
@@ -217,13 +204,13 @@
 
         function fetchData() {
             document.getElementById('loading').style.display = 'block';
-            document.getElementById('feedbackTable').style.display = 'none';
+            document.getElementById('mainTable').style.display = 'none';
 
             fetch(SHEETDB_API_URL)
             .then(response => response.json())
             .then(data => {
                 globalFeedbackData = data;
-                renderTable(data);
+                renderMainTable(data);
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -231,35 +218,70 @@
             });
         }
 
-        function renderTable(data) {
+        // RENDER MAIN LIST
+        function renderMainTable(data) {
             const tbody = document.getElementById('tableBody');
             document.getElementById('loading').style.display = 'none';
-            document.getElementById('feedbackTable').style.display = 'table';
+            document.getElementById('mainTable').style.display = 'table';
             tbody.innerHTML = "";
 
             data.forEach((row, index) => {
-                const tr = document.createElement('tr');
+                let tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td class="col-sno">${index + 1}</td>
-                    <td class="col-token">${row.Token || '-'}</td>
-                    <td>${row.Q1 || ''}</td>
-                    <td>${row.Q2 || ''}</td>
-                    <td>${row.Q3 || ''}</td>
-                    <td>${row.Q4 || ''}</td>
-                    <td>${row.Q5 || ''}</td>
-                    <td>${row.Q6 || ''}</td>
-                    <td>${row.Q7 || ''}</td>
-                    <td>${row.Q8 || ''}</td>
-                    <td>${row.Q9 || ''}</td>
-                    <td>${row.Q10 || ''}</td>
-                    <td>${row.Q11 || ''}</td>
-                    <td>${row.Q12 || ''}</td>
-                    <td>${row.Q13 || ''}</td>
-                    <td>${row.Q14 || ''}</td>
-                    <td>${row.Comments || ''}</td>
+                    <td>${index + 1}</td>
+                    <td style="font-weight:bold; color:#d35400;">${row.Token || '-'}</td>
+                    <td><button class="action-btn btn-view" onclick="viewDetails('${row.Token}')">View Details</button></td>
                 `;
                 tbody.appendChild(tr);
             });
+        }
+
+        // VIEW DETAILS (Grouped by Parts)
+        function viewDetails(token) {
+            const row = globalFeedbackData.find(r => r.Token === token);
+            if(!row) return;
+
+            document.getElementById('modalTitle').innerText = `Feedback Details: ${token}`;
+            const modalBody = document.getElementById('modalBody');
+            
+            let html = `
+                <table class="detail-table">
+                    <thead>
+                        <tr>
+                            <th class="main-head">Q.No</th>
+                            <th class="main-head">Question</th>
+                            <th class="main-head">Employee Feedback</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            for(let i=1; i<=41; i++) {
+                // INJECT HEADERS
+                if(i === 1) html += `<tr><td colspan="3" class="section-row">Part 1: Text Based Feedback</td></tr>`;
+                if(i === 21) html += `<tr><td colspan="3" class="section-row">Part 2: Multiple Choice Feedback</td></tr>`;
+                if(i === 40) html += `<tr><td colspan="3" class="section-row">Part 3: Detailed Feedback</td></tr>`;
+
+                let key = 'Q' + i;
+                let qText = questionMap[key];
+                let ans = row[key] || "N/A";
+                
+                html += `
+                    <tr>
+                        <td class="dt-qno">${i}</td>
+                        <td class="dt-que">${qText}</td>
+                        <td class="dt-ans">${ans}</td>
+                    </tr>
+                `;
+            }
+
+            html += `</tbody></table>`;
+            modalBody.innerHTML = html;
+            document.getElementById('detailModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').style.display = 'none';
         }
 
         function downloadExcel() {
@@ -274,37 +296,44 @@
             pdfBody.innerHTML = ""; 
 
             globalFeedbackData.forEach((row, index) => {
-                let entryHtml = `<div class="pdf-entry">`;
-                entryHtml += `
-                    <div class="pdf-ref-header">
-                        <span>#${index + 1} | Token: ${row.Token}</span>
-                        <span>${row.FirstName} ${row.LastName}</span>
-                    </div>
+                let html = `<div class="pdf-entry">`;
+                html += `<div class="pdf-header">Entry #${index+1} - Token: ${row.Token}</div>`;
+                
+                html += `
+                    <table class="detail-table" style="width:100%; font-size:12px;">
+                        <tr style="background:#f39c12; color:white;">
+                            <th style="padding:5px;">No</th>
+                            <th style="padding:5px;">Question</th>
+                            <th style="padding:5px;">Feedback</th>
+                        </tr>
                 `;
-                entryHtml += `
-                    <div class="pdf-personal-info">
-                        <strong>Contact Info:</strong> ${row.Email} | ${row.Phone}
-                    </div>
-                `;
-                for (const [key, fullQuestion] of Object.entries(questionMap)) {
-                    if (row[key]) {
-                        entryHtml += `
-                            <div class="pdf-qa-row">
-                                <span class="pdf-question">${fullQuestion}</span>
-                                <div class="pdf-answer">${row[key]}</div>
-                            </div>
-                        `;
-                    }
+
+                for(let i=1; i<=41; i++) {
+                    // Inject Headers in PDF
+                    if(i === 1) html += `<tr><td colspan="3" style="background:#e67e22; color:white; text-align:center; font-weight:bold; padding:5px;">Part 1: Text Based Feedback</td></tr>`;
+                    if(i === 21) html += `<tr><td colspan="3" style="background:#e67e22; color:white; text-align:center; font-weight:bold; padding:5px;">Part 2: Multiple Choice Feedback</td></tr>`;
+                    if(i === 40) html += `<tr><td colspan="3" style="background:#e67e22; color:white; text-align:center; font-weight:bold; padding:5px;">Part 3: Detailed Feedback</td></tr>`;
+
+                    let key = 'Q' + i;
+                    let ans = row[key] || "-";
+                    html += `
+                        <tr>
+                            <td style="border:1px solid #ddd; padding:5px; text-align:center;">${i}</td>
+                            <td style="border:1px solid #ddd; padding:5px;">${questionMap[key]}</td>
+                            <td style="border:1px solid #ddd; padding:5px; font-weight:bold; color:#d35400;">${ans}</td>
+                        </tr>
+                    `;
                 }
-                entryHtml += `</div>`;
-                pdfBody.innerHTML += entryHtml;
+                
+                html += `</table></div>`;
+                pdfBody.innerHTML += html;
             });
 
             const element = document.getElementById('pdf-content');
             element.style.display = 'block';
 
             var opt = {
-                margin:       0.5,
+                margin:       0.3,
                 filename:     'Executive_Feedback_Report.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2 },
