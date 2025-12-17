@@ -136,52 +136,32 @@
     </div>
 
     <script>
-        const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/2h2w1v1ug85h6'; 
+        const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/r781uwwg4lmp9'; 
         let globalFeedbackData = [];
 
-        // FULL 41 QUESTION MAP
+        // UPDATED QUESTION MAP (1-21) to match Employee Dashboard
         const questionMap = {
-            "Q1": "Is the office space maintained neat and clean?",
-            "Q2": "How is the access to the office premises? Is it easy to reach?",
-            "Q3": "Are you provided with the necessary tools, resources, and technology?",
-            "Q4": "Is the facility having/providing necessary things for your basic needs?",
-            "Q5": "Do you clearly understand your role and responsibilities?",
-            "Q6": "Do you feel the workload assigned to you is reasonable and manageable?",
-            "Q7": "Are you satisfied with the support and guidance provided by your supervisor?",
-            "Q8": "Is proper training and knowledge transfer available for the program you work on?",
-            "Q9": "How effective is communication between employees and management?",
-            "Q10": "How would you rate the work environment and office culture?",
+            "Q1": "How would you rate the cleanliness and maintenance of the office space?",
+            "Q2": "How easy is it to access and reach the office premises?",
+            "Q3": "Are you provided with the necessary tools and technology to perform your job effectively?",
+            "Q4": "Does the facility adequately provide for your basic needs?",
+            "Q5": "Do you clearly understand your primary role and responsibilities?",
+            "Q6": "How manageable is your typical workload?",
+            "Q7": "How would you rate the support and guidance from your immediate supervisor/manager?",
+            "Q8": "How effective is the training and knowledge transfer for your program?",
+            "Q9": "How effective is the communication between employees and senior management?",
+            "Q10": "How would you describe the overall work environment and office culture?",
             "Q11": "Do you feel respected and valued by your team and management?",
-            "Q12": "Are your ideas, suggestions, or feedback encouraged and taken seriously?",
-            "Q13": "How satisfied are you with the learning and skill development opportunities?",
-            "Q14": "Do you feel there are fair opportunities for career growth and promotion?",
-            "Q15": "How satisfied are you with the salary, incentives, and benefits provided?",
-            "Q16": "How would you rate the company’s policies related to work-life balance?",
-            "Q17": "Are the shift timings convenient for you? (Do you have any issues with commuting?)",
-            "Q18": "How satisfied are you with your overall experience working here?",
-            "Q19": "Would you recommend this company as a good place to work to others?",
-            "Q20": "What improvements or changes would you suggest?",
-            "Q21": "How would you rate the cleanliness and maintenance of the office space?",
-            "Q22": "How easy is it to access and reach the office premises?",
-            "Q23": "Are you provided with the necessary tools and technology to perform your job effectively?",
-            "Q24": "Does the facility adequately provide for your basic needs?",
-            "Q25": "Do you clearly understand your primary role and responsibilities?",
-            "Q26": "How manageable is your typical workload?",
-            "Q27": "How would you rate the support and guidance from your immediate supervisor/manager?",
-            "Q28": "How effective is the training and knowledge transfer for your program?",
-            "Q29": "How effective is the communication between employees and senior management?",
-            "Q30": "How would you describe the overall work environment and office culture?",
-            "Q31": "Do you feel respected and valued by your team and management?",
-            "Q32": "Are your ideas and feedback encouraged and acted upon?",
-            "Q33": "How satisfied are you with learning and skill development opportunities?",
-            "Q34": "How do you view opportunities for career growth and promotion here?",
-            "Q35": "How satisfied are you with your overall compensation (salary, incentives, benefits)?",
-            "Q36": "How do you rate the company's support for work-life balance?",
-            "Q37": "How convenient are your shift timings and commute?",
-            "Q38": "Overall, how satisfied are you working at AI Infotech?",
-            "Q39": "How likely are you to recommend AI Infotech as a workplace to a friend?",
-            "Q40": "Detailed: Specific issues, ideas for improvement.",
-            "Q41": "Detailed: Explanation of specific challenges (if applicable)."
+            "Q12": "Are your ideas and feedback encouraged and acted upon?",
+            "Q13": "How satisfied are you with learning and skill development opportunities?",
+            "Q14": "How do you view opportunities for career growth and promotion here?",
+            "Q15": "How satisfied are you with your overall compensation (salary, incentives, benefits)?",
+            "Q16": "How do you rate the company's support for work-life balance?",
+            "Q17": "How convenient are your shift timings and commute?",
+            "Q18": "Overall, how satisfied are you working at AI Infotech?",
+            "Q19": "How likely are you to recommend AI Infotech as a workplace to a friend?",
+            "Q20": "Detailed: Please share any specific issues, ideas for improvement.",
+            "Q21": "Detailed: Explanation of specific challenges (if applicable)."
         };
 
         window.onload = function() {
@@ -247,14 +227,14 @@
                     <tbody>
             `;
 
-            for(let i=1; i<=41; i++) {
+            // Updated Loop: 1 to 21
+            for(let i=1; i<=21; i++) {
                 // Section Headers
-                if(i === 1) html += `<tr><td colspan="3" class="section-row">Part 1: Text Based Feedback</td></tr>`;
-                if(i === 21) html += `<tr><td colspan="3" class="section-row">Part 2: Multiple Choice Feedback</td></tr>`;
-                if(i === 40) html += `<tr><td colspan="3" class="section-row">Part 3: Detailed Feedback</td></tr>`;
+                if(i === 1) html += `<tr><td colspan="3" class="section-row">Part 1: Multiple Choice Feedback</td></tr>`;
+                if(i === 20) html += `<tr><td colspan="3" class="section-row">Part 2: Detailed Feedback</td></tr>`;
 
                 let key = 'Q' + i;
-                let qText = questionMap[key];
+                let qText = questionMap[key] || `Question ${i}`;
                 let ans = row[key] || "N/A";
                 
                 html += `
