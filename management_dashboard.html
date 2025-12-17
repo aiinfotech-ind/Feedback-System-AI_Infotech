@@ -39,7 +39,9 @@
         .welcome-label { font-size: 20px; font-weight: bold; margin-bottom: 5px; text-align: center; }
         .greet-note { font-size: 13px; opacity: 0.95; margin-bottom: 30px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 15px; }
         
-        .menu-item { padding: 12px 15px; border-radius: 8px; font-weight: 500; margin-bottom: 5px; background-color: white; color: #d35400; font-weight: bold; }
+        .menu-item { padding: 12px 15px; border-radius: 8px; font-weight: 500; margin-bottom: 5px; background-color: rgba(255,255,255,0.2); color: white; cursor: pointer; transition: 0.3s; }
+        .menu-item:hover { background-color: rgba(255,255,255,0.4); }
+        .menu-item.active { background-color: white; color: #d35400; font-weight: bold; }
         
         .logout-btn { margin-top: auto; background-color: #9c6002; border: none; padding: 15px; color: white; cursor: pointer; border-radius: 8px; font-weight: bold; }
 
@@ -56,6 +58,7 @@
         .btn-excel { background-color: #27ae60; } .btn-excel:hover { background-color: #219150; }
         .btn-refresh { background-color: #3498db; } .btn-refresh:hover { background-color: #2980b9; }
         .btn-view { background-color: #f39c12; color: white; padding: 5px 15px; font-size: 13px; } .btn-view:hover { background-color: #d35400; }
+        .btn-password { background-color: #8e44ad; width: 100%; margin-top: 10px; padding: 10px; } .btn-password:hover { background-color: #71368a; }
 
         /* --- MAIN DATA TABLE --- */
         .data-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
@@ -72,6 +75,8 @@
             width: 80%; max-width: 1000px; max-height: 90vh; overflow-y: auto;
             box-shadow: 0 5px 25px rgba(0,0,0,0.3); border-top: 10px solid #f39c12;
         }
+        .small-modal { max-width: 400px; text-align: center; }
+
         .close { float: right; font-size: 28px; font-weight: bold; cursor: pointer; color: #aaa; }
         .close:hover { color: #000; }
 
@@ -80,12 +85,17 @@
         .detail-table th.main-head { background-color: #f39c12; color: white; padding: 10px; text-align: left;}
         .detail-table td { border-bottom: 1px solid #eee; padding: 10px; vertical-align: top; }
         
-        /* Section Header Row Style (Part 1, Part 2...) */
+        /* Section Header Row Style */
         .section-row { background-color: #e67e22; color: white; text-align: center; font-weight: bold; font-size: 15px; letter-spacing: 1px; }
         
         .dt-qno { width: 50px; text-align: center; font-weight: bold; color: #888; border-right: 1px solid #eee; }
         .dt-que { width: 55%; font-weight: 600; color: #333; border-right: 1px solid #eee; }
         .dt-ans { font-weight: bold; color: #d35400; background-color: #fef9e7; }
+
+        /* FORM STYLES FOR PASSWORD */
+        .pass-input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
+        .pass-btn { background-color: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; }
+        .pass-btn:hover { background-color: #219150; }
 
         /* PDF HIDDEN */
         #pdf-content { display: none; padding: 20px; }
@@ -101,7 +111,10 @@
         <div class="logo-area"><img src="aiinfo.webp" alt="Logo"></div>
         <div class="welcome-label">Welcome, Director</div>
         <div class="greet-note">Full Executive Overview</div>
+        
         <div class="menu-item active">Master Feedback Data</div>
+        <div class="menu-item" onclick="openPasswordModal()">Manage Access (Passwords)</div>
+        
         <button class="logout-btn" onclick="logout()">← Logout</button>
     </div>
 
@@ -134,9 +147,19 @@
 
     <div id="detailModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
+            <span class="close" onclick="closeModal('detailModal')">&times;</span>
             <h2 id="modalTitle" style="margin-top:0; color: #d35400; text-align:center;">Feedback Details</h2>
             <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <div id="passwordModal" class="modal">
+        <div class="modal-content small-modal">
+            <span class="close" onclick="closeModal('passwordModal')">&times;</span>
+            <h2 style="color: #e67e22;">Change Employee Password</h2>
+            <p style="font-size:13px; color:#666;">Enter the new password for the "employee" login.</p>
+            <input type="text" id="newEmployeePassword" class="pass-input" placeholder="New Password">
+            <button class="pass-btn" onclick="updateEmployeePassword()">Update Password</button>
         </div>
     </div>
 
@@ -146,52 +169,32 @@
     </div>
 
     <script>
-        const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/2h2w1v1ug85h6'; 
+        const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/r781uwwg4lmp9'; 
         let globalFeedbackData = [];
 
-        // FULL 41 QUESTION MAP (Cleaned - No "Part" labels in text)
+        // UPDATED QUESTION MAP (1-21)
         const questionMap = {
-            "Q1": "Is the office space maintained neat and clean?",
-            "Q2": "How is the access to the office premises? Is it easy to reach?",
-            "Q3": "Are you provided with the necessary tools, resources, and technology?",
-            "Q4": "Is the facility having/providing necessary things for your basic needs?",
-            "Q5": "Do you clearly understand your role and responsibilities?",
-            "Q6": "Do you feel the workload assigned to you is reasonable and manageable?",
-            "Q7": "Are you satisfied with the support and guidance provided by your supervisor?",
-            "Q8": "Is proper training and knowledge transfer available for the program you work on?",
-            "Q9": "How effective is communication between employees and management?",
-            "Q10": "How would you rate the work environment and office culture?",
+            "Q1": "How would you rate the cleanliness and maintenance of the office space?",
+            "Q2": "How easy is it to access and reach the office premises?",
+            "Q3": "Are you provided with the necessary tools and technology to perform your job effectively?",
+            "Q4": "Does the facility adequately provide for your basic needs?",
+            "Q5": "Do you clearly understand your primary role and responsibilities?",
+            "Q6": "How manageable is your typical workload?",
+            "Q7": "How would you rate the support and guidance from your immediate supervisor/manager?",
+            "Q8": "How effective is the training and knowledge transfer for your program?",
+            "Q9": "How effective is the communication between employees and senior management?",
+            "Q10": "How would you describe the overall work environment and office culture?",
             "Q11": "Do you feel respected and valued by your team and management?",
-            "Q12": "Are your ideas, suggestions, or feedback encouraged and taken seriously?",
-            "Q13": "How satisfied are you with the learning and skill development opportunities?",
-            "Q14": "Do you feel there are fair opportunities for career growth and promotion?",
-            "Q15": "How satisfied are you with the salary, incentives, and benefits provided?",
-            "Q16": "How would you rate the company’s policies related to work-life balance?",
-            "Q17": "Are the shift timings convenient for you? (Do you have any issues with commuting?)",
-            "Q18": "How satisfied are you with your overall experience working here?",
-            "Q19": "Would you recommend this company as a good place to work to others?",
-            "Q20": "What improvements or changes would you suggest?",
-            "Q21": "How would you rate the cleanliness and maintenance of the office space?",
-            "Q22": "How easy is it to access and reach the office premises?",
-            "Q23": "Are you provided with the necessary tools and technology to perform your job effectively?",
-            "Q24": "Does the facility adequately provide for your basic needs?",
-            "Q25": "Do you clearly understand your primary role and responsibilities?",
-            "Q26": "How manageable is your typical workload?",
-            "Q27": "How would you rate the support and guidance from your immediate supervisor/manager?",
-            "Q28": "How effective is the training and knowledge transfer for your program?",
-            "Q29": "How effective is the communication between employees and senior management?",
-            "Q30": "How would you describe the overall work environment and office culture?",
-            "Q31": "Do you feel respected and valued by your team and management?",
-            "Q32": "Are your ideas and feedback encouraged and acted upon?",
-            "Q33": "How satisfied are you with learning and skill development opportunities?",
-            "Q34": "How do you view opportunities for career growth and promotion here?",
-            "Q35": "How satisfied are you with your overall compensation (salary, incentives, benefits)?",
-            "Q36": "How do you rate the company's support for work-life balance?",
-            "Q37": "How convenient are your shift timings and commute?",
-            "Q38": "Overall, how satisfied are you working at AI Infotech?",
-            "Q39": "How likely are you to recommend AI Infotech as a workplace to a friend?",
-            "Q40": "Detailed: Specific issues, ideas for improvement, or detailed suggestions.",
-            "Q41": "Detailed: Explanation of specific challenges (if applicable)."
+            "Q12": "Are your ideas and feedback encouraged and acted upon?",
+            "Q13": "How satisfied are you with learning and skill development opportunities?",
+            "Q14": "How do you view opportunities for career growth and promotion here?",
+            "Q15": "How satisfied are you with your overall compensation (salary, incentives, benefits)?",
+            "Q16": "How do you rate the company's support for work-life balance?",
+            "Q17": "How convenient are your shift timings and commute?",
+            "Q18": "Overall, how satisfied are you working at AI Infotech?",
+            "Q19": "How likely are you to recommend AI Infotech as a workplace to a friend?",
+            "Q20": "Detailed: Please share any specific issues, ideas for improvement.",
+            "Q21": "Detailed: Explanation of specific challenges (if applicable)."
         };
 
         window.onload = function() {
@@ -256,14 +259,13 @@
                     <tbody>
             `;
 
-            for(let i=1; i<=41; i++) {
+            for(let i=1; i<=21; i++) {
                 // INJECT HEADERS
-                if(i === 1) html += `<tr><td colspan="3" class="section-row">Part 1: Text Based Feedback</td></tr>`;
-                if(i === 21) html += `<tr><td colspan="3" class="section-row">Part 2: Multiple Choice Feedback</td></tr>`;
-                if(i === 40) html += `<tr><td colspan="3" class="section-row">Part 3: Detailed Feedback</td></tr>`;
+                if(i === 1) html += `<tr><td colspan="3" class="section-row">Part 1: Multiple Choice Feedback</td></tr>`;
+                if(i === 20) html += `<tr><td colspan="3" class="section-row">Part 2: Detailed Feedback</td></tr>`;
 
                 let key = 'Q' + i;
-                let qText = questionMap[key];
+                let qText = questionMap[key] || `Question ${i}`;
                 let ans = row[key] || "N/A";
                 
                 html += `
@@ -280,8 +282,51 @@
             document.getElementById('detailModal').style.display = 'block';
         }
 
-        function closeModal() {
-            document.getElementById('detailModal').style.display = 'none';
+        function openPasswordModal() {
+            document.getElementById('passwordModal').style.display = 'block';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        // --- PASSWORD CHANGE LOGIC ---
+        function updateEmployeePassword() {
+            const newPass = document.getElementById('newEmployeePassword').value;
+            if(!newPass) { alert("Please enter a new password"); return; }
+
+            const btn = document.querySelector('.pass-btn');
+            const originalText = btn.innerText;
+            btn.innerText = "Updating...";
+
+            // ASSUMPTION: Your Sheet has a column 'Username' and 'Password'. 
+            // We search for Username = 'employee' and update the Password column.
+            fetch(`${SHEETDB_API_URL}/Username/employee`, {
+                method: 'PATCH',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    data: {
+                        'Password': newPass
+                    }
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                btn.innerText = originalText;
+                if(data.updated > 0) {
+                    alert("Success! Employee password has been updated.");
+                    closeModal('passwordModal');
+                } else {
+                    alert("Error: Could not find user 'employee' in the database. Please check your Sheet columns.");
+                }
+            })
+            .catch(error => {
+                btn.innerText = originalText;
+                alert("Network Error: Could not update password.");
+            });
         }
 
         function downloadExcel() {
@@ -308,18 +353,17 @@
                         </tr>
                 `;
 
-                for(let i=1; i<=41; i++) {
+                for(let i=1; i<=21; i++) {
                     // Inject Headers in PDF
-                    if(i === 1) html += `<tr><td colspan="3" style="background:#e67e22; color:white; text-align:center; font-weight:bold; padding:5px;">Part 1: Text Based Feedback</td></tr>`;
-                    if(i === 21) html += `<tr><td colspan="3" style="background:#e67e22; color:white; text-align:center; font-weight:bold; padding:5px;">Part 2: Multiple Choice Feedback</td></tr>`;
-                    if(i === 40) html += `<tr><td colspan="3" style="background:#e67e22; color:white; text-align:center; font-weight:bold; padding:5px;">Part 3: Detailed Feedback</td></tr>`;
+                    if(i === 1) html += `<tr><td colspan="3" style="background:#e67e22; color:white; text-align:center; font-weight:bold; padding:5px;">Part 1: Multiple Choice Feedback</td></tr>`;
+                    if(i === 20) html += `<tr><td colspan="3" style="background:#e67e22; color:white; text-align:center; font-weight:bold; padding:5px;">Part 2: Detailed Feedback</td></tr>`;
 
                     let key = 'Q' + i;
                     let ans = row[key] || "-";
                     html += `
                         <tr>
                             <td style="border:1px solid #ddd; padding:5px; text-align:center;">${i}</td>
-                            <td style="border:1px solid #ddd; padding:5px;">${questionMap[key]}</td>
+                            <td style="border:1px solid #ddd; padding:5px;">${questionMap[key] || 'Question '+i}</td>
                             <td style="border:1px solid #ddd; padding:5px; font-weight:bold; color:#d35400;">${ans}</td>
                         </tr>
                     `;
