@@ -4,192 +4,53 @@
     <meta charset="UTF-8">
     <title>Employee Dashboard - AI Infotech</title>
     <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            display: flex;
-            height: 100vh;
-            background-color: #f4f6f9;
-        }
-
-        /* --- SIDEBAR STYLES (THEME: Modern Teal #009688) --- */
-        .sidebar {
-            width: 280px;
-            background-color: #009688; /* Primary Teal */
-            color: white;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
-            overflow-y: auto;
-        }
-
-        /* --- CIRCULAR LOGO BADGE --- */
-        .logo-area {
-            background-color: #004D40; 
-            width: 180px;  
-            height: 180px;
-            border-radius: 50%; 
-            margin: 0 auto 30px auto; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            border: 4px solid rgba(255,255,255,0.15); 
-            overflow: hidden; 
-        }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; background-color: #f4f6f9; }
         
-        .logo-area img {
-            max-width: 85%;
-            height: auto;
-            display: block;
-        }
-
+        /* SIDEBAR */
+        .sidebar { width: 280px; background-color: #009688; color: white; display: flex; flex-direction: column; padding: 20px; overflow-y: auto; }
+        .logo-area { background-color: #004D40; width: 180px; height: 180px; border-radius: 50%; margin: 0 auto 30px auto; display: flex; justify-content: center; align-items: center; border: 4px solid rgba(255,255,255,0.15); overflow: hidden; }
+        .logo-area img { max-width: 85%; height: auto; display: block; }
         .welcome-label { font-size: 20px; font-weight: bold; margin-bottom: 5px; text-align: center;}
-        
-        /* UPDATED GREET NOTE STYLE */
-        .greet-note { 
-            font-size: 13px; 
-            opacity: 0.95; 
-            margin-bottom: 30px; 
-            font-style: italic; 
-            border-bottom: 1px solid rgba(255,255,255,0.3); 
-            padding-bottom: 15px; 
-            text-align: center;
-            line-height: 1.4; /* Better spacing for two lines */
-        }
-
-        .menu-item { padding: 12px 15px; cursor: pointer; border-radius: 8px; transition: 0.3s; font-weight: 500; margin-bottom: 5px; }
-        .menu-item:hover { background-color: #00796B; }
+        .greet-note { font-size: 13px; opacity: 0.95; margin-bottom: 30px; font-style: italic; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 15px; text-align: center; }
+        .menu-item { padding: 12px 15px; cursor: pointer; border-radius: 8px; font-weight: 500; margin-bottom: 5px; }
         .menu-item.active { background-color: white; color: #00796B; font-weight: bold; }
-
-        /* --- SIDEBAR SEARCH BAR --- */
-        .search-container {
-            margin-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.3);
-            padding-top: 20px;
-        }
-        .search-label { font-size: 14px; font-weight: bold; margin-bottom: 8px; display: block; }
-        .search-input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-            font-size: 14px;
-            color: #333;
-        }
-        .search-btn {
-            width: 100%;
-            padding: 10px;
-            background-color: #004D40; 
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .search-btn:hover { background-color: #00251a; }
-
+        
+        /* SEARCH */
+        .search-container { margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 20px; }
+        .search-input { width: 100%; padding: 10px; border-radius: 5px; border: none; margin-bottom: 10px; box-sizing: border-box; }
+        .search-btn { width: 100%; padding: 10px; background-color: #004D40; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
         .logout-btn { margin-top: auto; background-color: rgba(0,0,0,0.1); border: none; padding: 15px; color: white; cursor: pointer; border-radius: 8px; font-weight: bold; text-align: left; }
-        .logout-btn:hover { background-color: rgba(0,0,0,0.2); }
 
-        /* --- MAIN CONTENT --- */
+        /* CONTENT */
         .main-content { flex: 1; padding: 40px; overflow-y: auto; }
         .container { max-width: 900px; margin: 0 auto; }
-
-        .card {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            margin-bottom: 30px;
-        }
-
-        h2 { color: #2c3e50; margin-top: 0; border-bottom: 2px solid #009688; padding-bottom: 10px; display: inline-block; }
+        .card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); margin-bottom: 30px; }
         
-        /* FORM STYLES */
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-family: 'Segoe UI', sans-serif;
-            box-sizing: border-box;
-            transition: 0.3s;
-        }
+        /* FORM ELEMENTS */
+        h2 { color: #2c3e50; margin: 0; padding-bottom: 10px; text-transform: uppercase; border-bottom: 2px solid #eee; margin-bottom: 30px;}
+        h3 { color: #00796B; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 30px; font-size: 18px; }
+        .part-header { color: #00796B; font-weight: bold; text-transform: uppercase; background: #e0f2f1; padding: 5px 15px; border-radius: 20px; display:inline-block; margin-bottom: 10px;}
         
-        input:focus, textarea:focus { border-color: #009688; outline: none; box-shadow: 0 0 5px rgba(0, 150, 136, 0.3); }
+        .question-block { margin-bottom: 20px; }
+        .question-text { font-size: 15px; color: #333; margin-bottom: 8px; font-weight: 600; }
+        input[type="text"], select, textarea { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc; background-color: white; font-size: 14px; box-sizing: border-box;}
         textarea { height: 100px; resize: vertical; }
+        
+        .submit-btn { background-color: #009688; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 18px; width: 100%; margin-top: 30px; }
 
-        .question-block { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
-        .question-text { font-size: 16px; color: #333; margin-bottom: 10px; font-weight: 500; }
-
-        .submit-btn {
-            background-color: #009688;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 18px;
-            width: 100%;
-            transition: 0.3s;
-            margin-top: 20px;
-        }
-        .submit-btn:hover { background-color: #00796B; transform: translateY(-2px); }
-
-        /* --- MODAL STYLES --- */
+        /* MODALS */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(5px); }
-        .modal-content { 
-            background-color: white; 
-            margin: 5% auto; /* Higher position */
-            padding: 30px; 
-            border-radius: 10px; 
-            width: 60%; 
-            max-width: 700px;
-            color: #333; 
-            box-shadow: 0 5px 25px rgba(0,0,0,0.3); 
-            border-top: 10px solid #009688;
-            max-height: 85vh;
-            overflow-y: auto;
-        }
+        .modal-content { background-color: white; margin: 2% auto; padding: 30px; border-radius: 10px; width: 80%; max-width: 900px; max-height: 90vh; overflow-y: auto; position: relative; }
         .close { float: right; font-size: 28px; font-weight: bold; cursor: pointer; color: #aaa; }
-        .close:hover { color: #000; }
+        
+        /* TABLE IN MODAL */
+        .detail-table { width: 100%; border: 1px solid #eee; margin-top: 15px; border-collapse: collapse; }
+        .detail-table td { border-bottom: 1px solid #eee; padding: 10px; vertical-align: top; }
+        .dt-qno { width: 50px; text-align: center; font-weight: bold; color: #888; border-right: 1px solid #eee; }
+        .dt-ans { font-weight: bold; color: #009688; background-color: #e0f2f1; }
+        .section-row { background-color: #00796B; color: white; text-align: center; font-weight: bold; }
 
-        /* Success Message Specifics */
-        .success-token { 
-            font-size: 24px; 
-            font-weight: bold; 
-            color: #009688; 
-            display: block; 
-            margin: 15px 0; 
-            background: #e0f2f1; 
-            padding: 10px; 
-            border-radius: 5px; 
-        }
-        .success-note { color: #d32f2f; font-weight: 500; font-style: italic; margin-top: 10px; }
-
-        /* Search Result Specifics */
-        .result-qa { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .result-q { font-weight: bold; color: #444; font-size: 15px; display: block; margin-bottom: 5px;}
-        .result-a { color: #009688; font-weight: bold; font-size: 16px; margin-left: 10px; display: block;}
-
-        /* Loading Overlay */
-        #loading-overlay {
-            display: none;
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255,255,255,0.8);
-            z-index: 999;
-            text-align: center;
-            padding-top: 20%;
-            font-size: 24px;
-            color: #009688;
-            font-weight: bold;
-        }
+        #loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.8); z-index: 999; text-align: center; padding-top: 20%; font-size: 24px; color: #009688; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -197,52 +58,69 @@
     <div id="loading-overlay">Submitting Feedback...</div>
 
     <div class="sidebar">
-        <div class="logo-area">
-            <img src="aiinfo.webp" alt="Logo">
-        </div>
-
-        <div class="welcome-label">Welcome, <span id="display-name">Dear Employee</span></div>
-        <div class="greet-note">
-            Your voice helps us grow together.<br>
-            Together, we build a better workplace.
-        </div>
-
+        <div class="logo-area"><img src="aiinfo.webp" alt="Logo"></div>
+        <div class="welcome-label">Welcome, <span id="display-name">Employee</span></div>
+        <div class="greet-note">Your voice helps us grow together.</div>
         <div class="menu-item active">Feedback Portal</div>
-
+        
         <div class="search-container">
-            <label class="search-label">View My Feedback</label>
+            <label class="search-label" style="display:block; font-weight:bold; margin-bottom:5px;">View My Feedback</label>
             <input type="text" id="searchInput" class="search-input" placeholder="Enter Token Number">
             <button class="search-btn" onclick="searchFeedback()">Check Status</button>
         </div>
-
         <button class="logout-btn" onclick="logout()">← Logout</button>
     </div>
 
     <div class="main-content">
         <div class="container">
             <div class="card">
-                <h2>Employee Feedback</h2>
-                <p>Please provide your valuable feedback below. A unique token will be generated automatically.</p>
+                <h2 style="text-align:center;">AI Infotech Employee Experience Survey</h2>
+                <div style="text-align:center;"><span class="part-header">Part 1</span></div>
+                <p style="text-align:center; color:#666;">Please provide your feedback.</p>
                 
                 <form id="feedbackForm" onsubmit="submitToSheetDB(event)">
-                    
                     <input type="hidden" name="Token" id="tokenField">
 
-                    <div class="question-block"><div class="question-text">1. How satisfied are you with your overall experience working at AI Infotech?</div><input type="text" name="Q1" placeholder="Type your answer here..." required></div>
-                    <div class="question-block"><div class="question-text">2. Do you clearly understand your role and responsibilities?</div><input type="text" name="Q2" placeholder="Type your answer here..." required></div>
-                    <div class="question-block"><div class="question-text">3. How would you rate the work environment and office culture?</div><input type="text" name="Q3" placeholder="Type your answer here..." required></div>
-                    <div class="question-block"><div class="question-text">4. Do you feel respected and valued by your team and management?</div><input type="text" name="Q4" placeholder="Type your answer here..." required></div>
-                    <div class="question-block"><div class="question-text">5. How effective is communication between employees and management?</div><input type="text" name="Q5" placeholder="Type your answer here..." required></div>
-                    <div class="question-block"><div class="question-text">6. Are you satisfied with the support and guidance provided by your immediate supervisor?</div><input type="text" name="Q6" placeholder="Type your answer here..." required></div>
-                    <div class="question-block"><div class="question-text">7. Do you feel the workload assigned to you is reasonable and manageable?</div><input type="text" name="Q7" placeholder="Type your answer here..." required></div>
-                    <div class="question-block"><div class="question-text">8. Are you provided with the necessary tools, resources, and technology?</div><input type="text" name="Q8" placeholder="Type your answer here..." required></div>
-                    <div class="question-block"><div class="question-text">9. How satisfied are you with the learning and skill development opportunities?</div><input type="text" name="Q9" placeholder="Type your answer here..." required></div>
-                    <div class="question-block"><div class="question-text">10. Do you feel there are fair opportunities for career growth and promotion?</div><input type="text" name="Q10" placeholder="Type your answer here..." required></div>
-                    <div class="question-block"><div class="question-text">11. How would you rate the company’s policies related to work-life balance?</div><input type="text" name="Q11" placeholder="Type your answer here..." required></div>
-                    <div class="question-block"><div class="question-text">12. Are your ideas, suggestions, or feedback encouraged and taken seriously?</div><input type="text" name="Q12" placeholder="Type your answer here..." required></div>
-                    <div class="question-block"><div class="question-text">13. How satisfied are you with the salary, incentives, and benefits provided?</div><input type="text" name="Q13" placeholder="Type your answer here..." required></div>
-                    <div class="question-block"><div class="question-text">14. Would you recommend AI Infotech as a good place to work to others?</div><input type="text" name="Q14" placeholder="Type your answer here..." required></div>
-                    <div class="question-block"><div class="question-text">15. What improvements or changes would you suggest? (And other comments)</div><textarea name="Comments" placeholder="Type your detailed suggestions here..." required></textarea></div>
+                    <h3>Section 1: Work Environment & Resources</h3>
+                    <div class="question-block"><div class="question-text">1. How would you rate the cleanliness and maintenance of the office space?</div><select name="Q1" required><option disabled selected>Select...</option><option>Excellent</option><option>Good</option><option>Fair</option><option>Poor</option></select></div>
+                    <div class="question-block"><div class="question-text">2. How easy is it to access and reach the office premises?</div><select name="Q2" required><option disabled selected>Select...</option><option>Very Easy</option><option>Somewhat Easy</option><option>Somewhat Difficult</option><option>Very Difficult</option></select></div>
+                    <div class="question-block"><div class="question-text">3. Are you provided with the necessary tools and technology to perform your job effectively?</div><select name="Q3" required><option disabled selected>Select...</option><option>Yes, always</option><option>Yes, most of the time</option><option>Sometimes</option><option>No, rarely or never</option></select></div>
+                    <div class="question-block"><div class="question-text">4. Does the facility adequately provide for your basic needs?</div><select name="Q4" required><option disabled selected>Select...</option><option>Yes, fully</option><option>Yes, for the most part</option><option>Only partially</option><option>No, not adequately</option></select></div>
+
+                    <h3>Section 2: Role, Workload & Support</h3>
+                    <div class="question-block"><div class="question-text">5. Do you clearly understand your primary role and responsibilities?</div><select name="Q5" required><option disabled selected>Select...</option><option>Yes, completely</option><option>Yes, for the most part</option><option>Only somewhat</option><option>No, not clearly</option></select></div>
+                    <div class="question-block"><div class="question-text">6. How manageable is your typical workload?</div><select name="Q6" required><option disabled selected>Select...</option><option>Very manageable</option><option>Manageable with occasional stress</option><option>Often overwhelming</option><option>Consistently unmanageable</option></select></div>
+                    <div class="question-block"><div class="question-text">7. How would you rate the support and guidance from your immediate supervisor/manager?</div><select name="Q7" required><option disabled selected>Select...</option><option>Excellent</option><option>Good</option><option>Fair</option><option>Poor</option></select></div>
+                    <div class="question-block"><div class="question-text">8. How effective is the training and knowledge transfer for your program?</div><select name="Q8" required><option disabled selected>Select...</option><option>Very effective</option><option>Somewhat effective</option><option>Ineffective</option><option>No formal training/knowledge transfer is provided</option></select></div>
+
+                    <h3>Section 3: Communication, Culture & Respect</h3>
+                    <div class="question-block"><div class="question-text">9. How effective is the communication between employees and senior management?</div><select name="Q9" required><option disabled selected>Select...</option><option>Very effective</option><option>Somewhat effective</option><option>Somewhat ineffective</option><option>Very ineffective</option></select></div>
+                    <div class="question-block"><div class="question-text">10. How would you describe the overall work environment and office culture?</div><select name="Q10" required><option disabled selected>Select...</option><option>Very positive and collaborative</option><option>Mostly positive</option><option>Neutral</option><option>Negative or toxic</option></select></div>
+                    <div class="question-block"><div class="question-text">11. Do you feel respected and valued by your team and management?</div><select name="Q11" required><option disabled selected>Select...</option><option>Yes, consistently</option><option>Yes, most of the time</option><option>Occasionally</option><option>Rarely or never</option></select></div>
+                    <div class="question-block"><div class="question-text">12. Are your ideas and feedback encouraged and acted upon?</div><select name="Q12" required><option disabled selected>Select...</option><option>Yes, regularly</option><option>Sometimes</option><option>Rarely</option><option>No, they are generally ignored</option></select></div>
+
+                    <h3>Section 4: Growth, Compensation & Balance</h3>
+                    <div class="question-block"><div class="question-text">13. How satisfied are you with learning and skill development opportunities?</div><select name="Q13" required><option disabled selected>Select...</option><option>Very satisfied</option><option>Somewhat satisfied</option><option>Neutral</option><option>Dissatisfied</option></select></div>
+                    <div class="question-block"><div class="question-text">14. How do you view opportunities for career growth and promotion here?</div><select name="Q14" required><option disabled selected>Select...</option><option>Fair and transparent</option><option>Fair but not transparent</option><option>Limited opportunities</option><option>Unfair or biased</option></select></div>
+                    <div class="question-block"><div class="question-text">15. How satisfied are you with your overall compensation (salary, incentives, benefits)?</div><select name="Q15" required><option disabled selected>Select...</option><option>Very satisfied</option><option>Somewhat satisfied</option><option>Neutral</option><option>Dissatisfied</option></select></div>
+                    <div class="question-block"><div class="question-text">16. How do you rate the company's support for work-life balance?</div><select name="Q16" required><option disabled selected>Select...</option><option>Strongly supportive</option><option>Somewhat supportive</option><option>Neutral</option><option>Unsupportive</option></select></div>
+                    <div class="question-block"><div class="question-text">17. How convenient are your shift timings and commute?</div><select name="Q17" required><option disabled selected>Select...</option><option>Very convenient</option><option>Convenient with minor issues</option><option>Inconvenient</option><option>Very inconvenient</option></select></div>
+
+                    <h3>Section 5: Overall Engagement</h3>
+                    <div class="question-block"><div class="question-text">18. Overall, how satisfied are you working at AI Infotech?</div><select name="Q18" required><option disabled selected>Select...</option><option>Very satisfied</option><option>Satisfied</option><option>Neutral</option><option>Dissatisfied</option><option>Very dissatisfied</option></select></div>
+                    <div class="question-block"><div class="question-text">19. How likely are you to recommend AI Infotech as a workplace to a friend?</div><select name="Q19" required><option disabled selected>Select...</option><option>Very Likely (Promoter)</option><option>Likely (Passive)</option><option>Unlikely (Detractor)</option></select></div>
+
+                    <div style="text-align:center; margin-top:40px;"><span class="part-header">Part 2</span></div>
+
+                    <h3>Detailed Feedback & Suggestions</h3>
+                    <div class="question-block">
+                        <div class="question-text">20. Please share any specific issues, ideas for improvement, or detailed suggestions you have.</div>
+                        <textarea name="Q20" placeholder="Open text..." required></textarea>
+                    </div>
+                    <div class="question-block">
+                        <div class="question-text">21. If you selected "No," "Rarely," "Poor," "Dissatisfied," or "Unsupportive" to any question above, please feel free to explain the specific challenge here.</div>
+                        <textarea name="Q21" placeholder="Open text..."></textarea>
+                    </div>
 
                     <button type="submit" class="submit-btn">Submit Feedback</button>
                 </form>
@@ -255,10 +133,8 @@
             <span class="close" onclick="closeModal('successModal')">&times;</span>
             <h2 style="color: #009688;">Submission Successful!</h2>
             <p>Your feedback has been recorded.</p>
-            
-            <span id="displayToken" class="success-token">TOKEN</span>
-            
-            <p class="success-note">
+            <span id="displayToken" style="font-size: 24px; font-weight: bold; color: #009688; display: block; margin: 15px 0; background: #e0f2f1; padding: 10px; border-radius: 5px;">TOKEN</span>
+            <p style="color: #d32f2f; font-weight: 500; font-style: italic;">
                 "Dear employee note this token number to view your feedback, If you entered wrong please give a new feedback in the same"
             </p>
             <button class="submit-btn" onclick="closeModal('successModal')" style="width: auto; padding: 10px 30px;">Close</button>
@@ -268,156 +144,112 @@
     <div id="searchModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('searchModal')">&times;</span>
-            <h2 style="color: #009688; border-bottom: 2px solid #009688; padding-bottom: 10px;">My Feedback</h2>
+            <h2 style="text-align:center; color: #009688;">Feedback Details</h2>
             <div id="searchResultContent"></div>
         </div>
     </div>
 
     <script>
-        // ==========================================
-        // CONFIGURATION: YOUR SHEETDB API URL
-        // ==========================================
         const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/r781uwwg4lmp9'; 
-        // ==========================================
 
-        window.onload = function() {
-            const role = sessionStorage.getItem("userRole");
-            // No longer fetching name from session storage for display
-            // Default "Dear Employee" is hardcoded in HTML
-            if (role !== "employee") {
-                alert("Access Denied. Please Login.");
-                window.location.href = "index.html"; 
+        window.onload = function() { 
+            // Security Check
+            if(sessionStorage.getItem("userRole") !== "employee") {
+                window.location.href = "index.html";
             }
-            generateToken();
+            generateToken(); 
         };
 
         function generateToken() {
             const timestamp = Date.now().toString().slice(-4);
             const random = Math.floor(Math.random() * 10000);
-            const token = `TKN-${timestamp}-${random}`;
-            document.getElementById('tokenField').value = token;
+            document.getElementById('tokenField').value = `TKN-${timestamp}-${random}`;
         }
 
         function submitToSheetDB(e) {
             e.preventDefault();
-            
             const form = document.getElementById('feedbackForm');
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
             const loading = document.getElementById('loading-overlay');
-
             loading.style.display = 'block';
 
             fetch(SHEETDB_API_URL, {
                 method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    data: [ data ]
-                })
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                body: JSON.stringify({ data: [ data ] })
             })
-            .then(response => response.json())
-            .then(result => {
+            .then(r => r.json())
+            .then(res => {
                 loading.style.display = 'none';
-                
-                if(result.created === 1) {
-                    // SHOW SUCCESS MODAL
+                if(res.created === 1) {
                     document.getElementById('displayToken').innerText = data.Token;
                     document.getElementById('successModal').style.display = 'block';
-                    
                     form.reset();
                     generateToken();
-                } else {
-                    alert("Error submitting feedback.");
-                }
-            })
-            .catch(error => {
-                loading.style.display = 'none';
-                console.error("Error:", error);
-                alert("Network Error: Could not connect to SheetDB.");
+                } else { alert("Error submitting feedback."); }
             });
         }
 
-        // --- MAPPING FOR FULL QUESTIONS ---
-        const fullQuestions = {
-            "Q1": "1. How satisfied are you with your overall experience working at AI Infotech?",
-            "Q2": "2. Do you clearly understand your role and responsibilities?",
-            "Q3": "3. How would you rate the work environment and office culture?",
-            "Q4": "4. Do you feel respected and valued by your team and management?",
-            "Q5": "5. How effective is communication between employees and management?",
-            "Q6": "6. Are you satisfied with the support and guidance provided by your immediate supervisor?",
-            "Q7": "7. Do you feel the workload assigned to you is reasonable and manageable?",
-            "Q8": "8. Are you provided with the necessary tools, resources, and technology?",
-            "Q9": "9. How satisfied are you with the learning and skill development opportunities?",
-            "Q10": "10. Do you feel there are fair opportunities for career growth and promotion?",
-            "Q11": "11. How would you rate the company’s policies related to work-life balance?",
-            "Q12": "12. Are your ideas, suggestions, or feedback encouraged and taken seriously?",
-            "Q13": "13. How satisfied are you with the salary, incentives, and benefits provided?",
-            "Q14": "14. Would you recommend AI Infotech as a good place to work to others?",
-            "Comments": "15. What improvements or changes would you suggest? (And other comments)"
+        const questionMap = {
+            "Q1": "How would you rate the cleanliness and maintenance of the office space?",
+            "Q2": "How easy is it to access and reach the office premises?",
+            "Q3": "Are you provided with the necessary tools and technology to perform your job effectively?",
+            "Q4": "Does the facility adequately provide for your basic needs?",
+            "Q5": "Do you clearly understand your primary role and responsibilities?",
+            "Q6": "How manageable is your typical workload?",
+            "Q7": "How would you rate the support and guidance from your immediate supervisor/manager?",
+            "Q8": "How effective is the training and knowledge transfer for your program?",
+            "Q9": "How effective is the communication between employees and senior management?",
+            "Q10": "How would you describe the overall work environment and office culture?",
+            "Q11": "Do you feel respected and valued by your team and management?",
+            "Q12": "Are your ideas and feedback encouraged and acted upon?",
+            "Q13": "How satisfied are you with learning and skill development opportunities?",
+            "Q14": "How do you view opportunities for career growth and promotion here?",
+            "Q15": "How satisfied are you with your overall compensation (salary, incentives, benefits)?",
+            "Q16": "How do you rate the company's support for work-life balance?",
+            "Q17": "How convenient are your shift timings and commute?",
+            "Q18": "Overall, how satisfied are you working at AI Infotech?",
+            "Q19": "How likely are you to recommend AI Infotech as a workplace to a friend?",
+            "Q20": "Detailed: Please share any specific issues, ideas for improvement.",
+            "Q21": "Detailed: Explanation of specific challenges (if applicable)."
         };
 
-        // --- SEARCH FUNCTIONALITY ---
         function searchFeedback() {
             const token = document.getElementById('searchInput').value.trim();
-            if(!token) { alert("Please enter a Token Number"); return; }
-
+            if(!token) return alert("Enter Token");
+            
             const loading = document.getElementById('loading-overlay');
             loading.style.display = 'block';
             loading.innerText = "Searching...";
 
-            // SheetDB Search API
             fetch(`${SHEETDB_API_URL}/search?Token=${token}`)
-            .then(response => response.json())
+            .then(r => r.json())
             .then(data => {
-                loading.style.display = 'none';
-                loading.innerText = "Submitting Feedback..."; // Reset text
-
-                if(data.length > 0) {
-                    displaySearchResult(data[0]);
-                } else {
-                    alert("Token not found. Please check and try again.");
-                }
-            })
-            .catch(error => {
-                loading.style.display = 'none';
-                alert("Error searching data.");
+                loading.style.display = 'none'; loading.innerText = "";
+                if(data.length > 0) displaySearchResult(data[0]);
+                else alert("Token not found.");
             });
         }
 
         function displaySearchResult(row) {
-            const content = document.getElementById('searchResultContent');
-            let html = `<p style="font-weight:bold; color:#555;">Token: ${row.Token}</p>`;
-
-            // Iterate through 15 Questions using the MAP
-            for(let i=1; i<=15; i++) {
-                let key = i === 15 ? 'Comments' : 'Q' + i;
-                let val = row[key] || "N/A";
-                let questionText = fullQuestions[key] || `Question ${i}`; // Fallback if map fails
-
-                html += `
-                    <div class="result-qa">
-                        <span class="result-q">${questionText}</span><br>
-                        <span class="result-a">${val}</span>
-                    </div>
-                `;
+            let html = `<p style="font-weight:bold; color:#555; text-align:center;">Token: ${row.Token}</p>`;
+            html += `<table class="detail-table"><thead><tr><th style="width:50px;">No</th><th>Question</th><th>Your Feedback</th></tr></thead><tbody>`;
+            
+            for(let i=1; i<=21; i++) {
+                if(i === 1) html += `<tr><td colspan="3" class="section-row">Part 1: Multiple Choice Feedback</td></tr>`;
+                if(i === 20) html += `<tr><td colspan="3" class="section-row">Part 2: Detailed Feedback</td></tr>`;
+                let key = 'Q' + i;
+                html += `<tr><td class="dt-qno">${i}</td><td>${questionMap[key] || 'Q'+i}</td><td class="dt-ans">${row[key] || "N/A"}</td></tr>`;
             }
-            content.innerHTML = html;
+            html += `</tbody></table>`;
+            document.getElementById('searchResultContent').innerHTML = html;
             document.getElementById('searchModal').style.display = 'block';
         }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = "index.html";
-        }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        function logout() { sessionStorage.clear(); window.location.href = "index.html"; }
     </script>
 
 </body>
 </html>
-
