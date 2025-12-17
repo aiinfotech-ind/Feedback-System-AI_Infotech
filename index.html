@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AI Infotech - Admin Portal Access</title>
+    <title>AI Infotech - Portal Access</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; margin: 0; overflow: hidden; background-color: #f4f6f9; }
 
@@ -20,7 +20,8 @@
         /* --- SECTION BACKGROUNDS --- */
         #management-section { background-color: #fcf3cf; color: #333; } 
         #hr-section { background-color: #f3eaf8; color: #333; } 
-        
+        #employee-section { background-color: #e0f2f1; color: #333; } 
+
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* --- LOGO STYLE --- */
@@ -34,58 +35,35 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
         }
         
-        /* --- PORTAL SPECIFIC LOGO BACKGROUNDS --- */
-        .logo-mgmt { background-color: #d68910; } /* Gold */
+        .logo-mgmt { background-color: #f39c12; } /* Gold */
         .logo-hr { background-color: #8e44ad; }   /* Purple */
+        .logo-emp { background-color: #004D40; }  /* Dark Teal */
 
-        /* --- TITLE STYLES --- */
-        h1 { 
-            margin-bottom: 10px; 
-            color: #333; 
-            text-transform: uppercase; 
-            letter-spacing: 1px;
-            font-size: 1.8rem;
-        }
+        h1 { margin-bottom: 10px; color: #333; text-transform: uppercase; letter-spacing: 1px; font-size: 1.8rem; }
 
         /* FORM STYLES */
         form { display: flex; flex-direction: column; gap: 15px; width: 320px; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #ddd; }
-
         input { padding: 12px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px; }
 
         /* BUTTONS */
         button { padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; color: white; transition: 0.3s; margin-top: 10px;}
 
-        /* --- THEME BUTTON COLORS --- */
-        .btn-mgmt { background-color: #f39c12; } 
-        .btn-mgmt:hover { background-color: #d35400; }
+        .btn-mgmt { background-color: #f39c12; } .btn-mgmt:hover { background-color: #d35400; }
+        .btn-hr { background-color: #8e44ad; } .btn-hr:hover { background-color: #732d91; }
+        .btn-emp { background-color: #009688; } .btn-emp:hover { background-color: #00796B; }
 
-        .btn-hr { background-color: #8e44ad; } 
-        .btn-hr:hover { background-color: #732d91; }
+        .nav-container { margin-top: 20px; display: flex; gap: 15px; }
 
-        /* NAVIGATION BUTTON CONTAINER */
-        .nav-container {
-            margin-top: 20px;
-            display: flex;
-            gap: 15px;
-        }
-
-        /* SWITCH BUTTONS */
         .switch-btn {
-            background: transparent;
-            border: 2px solid;
-            padding: 8px 15px;
-            font-size: 13px;
-            cursor: pointer;
-            margin-top: 0;
-            color: #555; 
-            border-color: #555; 
+            background: transparent; border: 2px solid; padding: 8px 15px; font-size: 13px; cursor: pointer; margin-top: 0; color: #555; border-color: #555; 
         }
         .switch-btn:hover { background: #555; color: white; }
 
-        /* LINKS */
         a { color: #0056b3; text-decoration: none; font-weight: bold; }
         a:hover { text-decoration: underline; }
 
+        /* LOADING SPINNER */
+        #login-loading { display: none; margin-top: 10px; color: #009688; font-weight: bold; text-align: center;}
     </style>
 </head>
 <body>
@@ -93,81 +71,137 @@
 <div id="management-section" class="full-screen-section" style="display: flex;">
     <img src="aiinfo.webp" alt="AI Infotech Logo" class="logo logo-mgmt">
     <h1 style="color: #d35400;">Management Portal</h1>
-
     <form onsubmit="handleLogin(event, 'management')">
         <label>Welcome Back, Admin</label>
-        <input type="text" id="mgmt-id" name="username" placeholder="Admin ID" required>
-        <input type="password" id="mgmt-pass" name="password" placeholder="Password" required>
+        <input type="text" id="mgmt-id" placeholder="Admin ID" required>
+        <input type="password" id="mgmt-pass" placeholder="Password" required>
         <button type="submit" class="btn-mgmt">Login to Management</button>
     </form>
-
     <div class="nav-container">
         <button class="switch-btn" onclick="showHR()">Go to HR Portal</button>
+        <button class="switch-btn" onclick="showEmployee()">Go to Employee Portal</button>
     </div>
 </div>
 
 <div id="hr-section" class="full-screen-section">
     <img src="aiinfo.webp" alt="AI Infotech Logo" class="logo logo-hr">
     <h1 style="color: #8e44ad;">HR Portal</h1>
-
     <form onsubmit="handleLogin(event, 'hr')">
         <label>Welcome Back, HR Team</label>
-        <input type="text" id="hr-id" name="username" placeholder="HR ID" required>
-        <input type="password" id="hr-pass" name="password" placeholder="Password" required>
+        <input type="text" id="hr-id" placeholder="HR ID" required>
+        <input type="password" id="hr-pass" placeholder="Password" required>
         <button type="submit" class="btn-hr">Login to HR</button>
     </form>
-
     <div class="nav-container">
         <button class="switch-btn" onclick="showManagement()">Go to Management</button>
+        <button class="switch-btn" onclick="showEmployee()">Go to Employee Portal</button>
+    </div>
+</div>
+
+<div id="employee-section" class="full-screen-section">
+    <img src="aiinfo.webp" alt="AI Infotech Logo" class="logo logo-emp">
+    <h1 style="color: #009688;">Employee Portal</h1>
+    <form onsubmit="handleLogin(event, 'employee')">
+        <label>Employee Login</label>
+        <input type="text" id="emp-id" placeholder="Employee ID" required>
+        <input type="password" id="emp-pass" placeholder="Password" required>
+        <button type="submit" class="btn-emp" id="emp-login-btn">Login</button>
+        <div id="login-loading">Checking Database...</div>
+    </form>
+    <div class="nav-container">
+        <button class="switch-btn" onclick="showManagement()">Go to Management</button>
+        <button class="switch-btn" onclick="showHR()">Go to HR Portal</button>
     </div>
 </div>
 
 <script>
-    // 1. PAGE NAVIGATION FUNCTIONS
-    window.showManagement = function() {
-        hideAll();
-        document.getElementById('management-section').style.display = 'flex';
-    }
+    // SHEETDB API URL
+    const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/r781uwwg4lmp9'; 
 
-    window.showHR = function() {
-        hideAll();
-        document.getElementById('hr-section').style.display = 'flex';
-    }
+    // 1. PAGE NAVIGATION FUNCTIONS
+    window.showManagement = function() { hideAll(); document.getElementById('management-section').style.display = 'flex'; }
+    window.showHR = function() { hideAll(); document.getElementById('hr-section').style.display = 'flex'; }
+    window.showEmployee = function() { hideAll(); document.getElementById('employee-section').style.display = 'flex'; }
 
     function hideAll() {
         document.getElementById('management-section').style.display = 'none';
         document.getElementById('hr-section').style.display = 'none';
+        document.getElementById('employee-section').style.display = 'none';
     }
 
     // 2. LOGIN HANDLING
     window.handleLogin = function(event, role) {
         event.preventDefault();
         
-        // --- MANAGEMENT LOGIN ---
+        // --- MANAGEMENT LOGIN (Hardcoded) ---
         if(role === 'management') {
             const id = document.getElementById('mgmt-id').value;
             const pass = document.getElementById('mgmt-pass').value;
-
             if(id === "admin@aiinfotech" && pass === "admin123") {
                 sessionStorage.setItem("userRole", "admin");
-                sessionStorage.setItem("userName", "Administrator");
                 window.location.href = "management_dashboard.html";
-            } else {
-                alert("Invalid Management Credentials");
-            }
+            } else { alert("Invalid Management Credentials"); }
 
-        // --- HR LOGIN ---
+        // --- HR LOGIN (Hardcoded) ---
         } else if(role === 'hr') {
             const id = document.getElementById('hr-id').value;
             const pass = document.getElementById('hr-pass').value;
-
             if(id === "hr@aiinfotech" && pass === "hr123") {
                 sessionStorage.setItem("userRole", "hr");
-                sessionStorage.setItem("userName", "HR Admin");
                 window.location.href = "hr_dashboard.html"; 
-            } else {
-                alert("Invalid HR Credentials");
+            } else { alert("Invalid HR Credentials"); }
+
+        // --- EMPLOYEE LOGIN (Dynamic Logic) ---
+        } else if(role === 'employee') {
+            const id = document.getElementById('emp-id').value;
+            const pass = document.getElementById('emp-pass').value;
+            const btn = document.getElementById('emp-login-btn');
+            const loading = document.getElementById('login-loading');
+
+            // Pre-check ID format
+            if(id !== "employee@aiinfotech") {
+                alert("Invalid Employee ID");
+                return;
             }
+
+            // Start API Check
+            btn.style.display = 'none';
+            loading.style.display = 'block';
+
+            fetch(`${SHEETDB_API_URL}/search?Username=employee`)
+            .then(response => response.json())
+            .then(data => {
+                loading.style.display = 'none';
+                btn.style.display = 'block';
+                
+                let validPassword = "employee123"; // Default Password
+
+                // Logic: If user exists AND has a password in DB, use it.
+                // Otherwise (row missing or password blank), keep default 'employee123'.
+                if (data.length > 0 && data[0].Password && data[0].Password.trim() !== "") {
+                    validPassword = data[0].Password.trim();
+                }
+
+                if (pass === validPassword) {
+                     sessionStorage.setItem("userRole", "employee");
+                     window.location.href = "employee_dashboard.html";
+                } else {
+                    alert("Invalid Password");
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                loading.style.display = 'none';
+                btn.style.display = 'block';
+                
+                // Fallback in case of Network Error: Allow Default
+                if(pass === "employee123") {
+                    sessionStorage.setItem("userRole", "employee");
+                    window.location.href = "employee_dashboard.html";
+                } else {
+                    alert("Network Error. Unable to verify credentials.");
+                }
+            });
         }
     }
 </script>
